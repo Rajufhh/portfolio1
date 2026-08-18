@@ -22,19 +22,17 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
+    "types": [],
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    },
-    "types": [
-      "./env.d.ts",
-      "node",
-      "jest"
-    ]
+    }
   },
   "include": [
     "next-env.d.ts",
+    "env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
