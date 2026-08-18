@@ -9,7 +9,7 @@
 
 ## 🚀 Live Demo
 
-Visit the live portfolio: [https://raju-bathini.vercel.app](https://raju-bathini.vercel.app)
+Visit the live portfolio: [https://portfolio-omega-five-e0robgdyp0.vercel.app/](https://raju-bathini.vercel.app)
 
 ## 👨‍💻 About Me
 
