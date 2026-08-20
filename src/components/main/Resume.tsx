@@ -16,8 +16,23 @@ const ResumeSection = () => {
 
   useEffect(() => {
     import('react-pdf').then(({ pdfjs }) => {
-      pdfjs.GlobalWorkerOptions.workerSrc =
-        'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.3.31/build/pdf.worker.min.mjs'
+      // Use the locally installed pdfjs-dist worker so the API and worker versions match.
+      // Resolving the worker via `new URL(..., import.meta.url)` lets the bundler
+      // serve the worker file from the installed package instead of an external CDN.
+      // This avoids version mismatches between the pdfjs API (from pdfjs-dist) and the worker.
+      try {
+        // Prefer the minified JS worker. Some bundlers may prefer the .mjs variant;
+        // if your deployment requires .mjs, switch to 'pdfjs-dist/build/pdf.worker.min.mjs'.
+        pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+          'pdfjs-dist/build/pdf.worker.min.js',
+          import.meta.url
+        ).toString()
+      } catch (e) {
+        // Fallback: leave workerSrc unset — react-pdf will attempt to load the worker automatically.
+        // Log to console for easier debugging in case bundler doesn't support new URL resolution.
+        // eslint-disable-next-line no-console
+        console.error('Failed to set pdfjs workerSrc via import.meta.url', e)
+      }
     })
   }, [])
 
